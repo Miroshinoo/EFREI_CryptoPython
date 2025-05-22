@@ -64,8 +64,3 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
-
-.lock-icon {
-    width: 28px;
-    height: 28px;
-}
