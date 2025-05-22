@@ -20,7 +20,12 @@ def encrypt_form():
     try:
         fernet = Fernet(key.encode())
         encrypted_message = fernet.encrypt(message.encode()).decode()
-        return render_template("crypto.html", encrypted_result=encrypted_message)
+        return render_template(
+            "crypto.html",
+            encrypted_result=encrypted_message,
+            encrypt_key=key,
+            encrypt_message=message
+        )
     except Exception as e:
         return render_template("crypto.html", encrypted_result=f"Erreur : {e}")
 
@@ -32,7 +37,12 @@ def decrypt_form():
     try:
         fernet = Fernet(key.encode())
         decrypted_message = fernet.decrypt(encrypted_message.encode()).decode()
-        return render_template("crypto.html", decrypted_result=decrypted_message)
+        return render_template(
+            "crypto.html",
+            decrypted_result=decrypted_message,
+            decrypt_key=key,
+            decrypt_message=encrypted_message
+        )
     except Exception as e:
         return render_template("crypto.html", decrypted_result=f"Erreur : {e}")
 
