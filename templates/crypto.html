@@ -15,28 +15,42 @@
         <form method="POST" action="/encrypt-form">
             <label for="key">Clé :</label>
             <div style="display: flex; gap: 10px;">
-                <input type="text" id="key" name="key" style="flex: 1;">
-                <button type="button" onclick="generateKey()">🔑 Générer une clé</button>
+                <input type="text" id="key" name="key" style="flex: 1;" value="{{ request.form.get('key', '') }}">
+                <button type="button" onclick="generateKey()">Générer une clé</button>
             </div>
 
             <label for="message">Message :</label>
-            <textarea id="message" name="message"></textarea>
+            <textarea id="message" name="message">{{ request.form.get('message', '') }}</textarea>
 
             <input type="submit" value="Chiffrer">
         </form>
+
+        {% if encrypted_result %}
+        <div class="result">
+            <strong>Message chiffré :</strong>
+            <textarea readonly style="width: 100%; margin-top: 10px;">{{ encrypted_result }}</textarea>
+        </div>
+        {% endif %}
     </div>
 
     <div class="card">
         <h2>Déchiffrement</h2>
         <form method="POST" action="/decrypt-form">
             <label for="key_decrypt">Clé :</label>
-            <input type="text" id="key_decrypt" name="key">
+            <input type="text" id="key_decrypt" name="key" value="{{ request.form.get('key', '') }}">
 
             <label for="encrypted_message">Message chiffré :</label>
-            <textarea id="encrypted_message" name="message"></textarea>
+            <textarea id="encrypted_message" name="message">{{ request.form.get('message', '') }}</textarea>
 
             <input type="submit" value="Déchiffrer">
         </form>
+
+        {% if decrypted_result %}
+        <div class="result">
+            <strong>Message déchiffré :</strong>
+            <textarea readonly style="width: 100%; margin-top: 10px;">{{ decrypted_result }}</textarea>
+        </div>
+        {% endif %}
     </div>
 </div>
 
