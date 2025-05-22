@@ -32,9 +32,10 @@ def decrypt_form():
         return render_template('crypto.html', result=f"Erreur : {str(e)}")
 
 # Bonus : route pour générer une clé
-@app.route('/generate-key/')
+@app.route("/generate_key")
 def generate_key():
-    return {'key': Fernet.generate_key().decode()}
+    key = Fernet.generate_key().decode()  # clé en base64
+    return jsonify({"key": key})
 
 if __name__ == '__main__':
     app.run(debug=True)
