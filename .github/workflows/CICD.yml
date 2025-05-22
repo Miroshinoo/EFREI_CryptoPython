@@ -54,3 +54,16 @@ jobs:
             echo "Échec du redémarrage avec le code de réponse : $response_code"
             exit 1  # Quitter avec un code d'erreur
           fi
+
+  jobs:
+    Connexion:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Connexion SSH avec le serveur
+          uses: appleboy/ssh-action@master
+          with:
+            host: "ssh-${{ secrets.USERNAME }}.alwaysdata.net"
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            script: |
+              cd $HOME/www/
