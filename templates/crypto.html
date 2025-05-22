@@ -47,6 +47,19 @@
         </form>
     </div>
 </div>
-
+<script>
+function generateKey() {
+    fetch("/generate_key")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("key").value = data.key;
+        })
+        .catch(error => {
+            alert("Erreur lors de la génération de la clé.");
+            console.error(error);
+        });
+}
+</script>
 </body>
 </html>
+
