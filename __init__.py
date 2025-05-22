@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request
 from cryptography.fernet import Fernet
 
 app = Flask(__name__)
@@ -10,32 +10,31 @@ def index():
 @app.route("/generate_key")
 def generate_key():
     key = Fernet.generate_key().decode()
-    return jsonify({"key": key})
+    return {"key": key}
 
-# (Tes routes existantes pour /chiffrer et /dechiffrer ici)
-@app.route('/encrypt-form', methods=['POST'])
+@app.route("/encrypt-form", methods=["POST"])
 def encrypt_form():
-    key = request.form['key']
-    message = request.form['message']
+    key = request.form["key"]
+    message = request.form["message"]
 
     try:
-        f = Fernet(key.encode())
-        encrypted = f.encrypt(message.encode()).decode()
-        return render_template('crypto.html', result=f"Message chiffré : {encrypted}")
+        fernet = Fernet(key.encode())
+        encrypted_message = fernet.encrypt(message.encode()).decode()
+        return render_template("crypto.html", encrypted_result=encrypted_message)
     except Exception as e:
-        return render_template('crypto.html', result=f"Erreur : {str(e)}")
+        return render_template("crypto.html", encrypted_result=f"Erreur : {e}")
 
-@app.route('/decrypt-form', methods=['POST'])
+@app.route("/decrypt-form", methods=["POST"])
 def decrypt_form():
-    key = request.form['key']
-    message = request.form['message']
+    key = request.form["key"]
+    encrypted_message = request.form["message"]
 
     try:
-        f = Fernet(key.encode())
-        decrypted = f.decrypt(message.encode()).decode()
-        return render_template('crypto.html', result=f"Message déchiffré : {decrypted}")
+        fernet = Fernet(key.encode())
+        decrypted_message = fernet.decrypt(encrypted_message.encode()).decode()
+        return render_template("crypto.html", decrypted_result=decrypted_message)
     except Exception as e:
-        return render_template('crypto.html', result=f"Erreur : {str(e)}")
+        return render_template("crypto.html", decrypted_result=f"Erreur : {e}")
 
 if __name__ == '__main__':
     app.run(debug=True)
