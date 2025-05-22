@@ -1,12 +1,18 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, jsonify
 from cryptography.fernet import Fernet
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('crypto.html')
+@app.route("/")
+def index():
+    return render_template("crypto.html")
 
+@app.route("/generate_key")
+def generate_key():
+    key = Fernet.generate_key().decode()
+    return jsonify({"key": key})
+
+# (Tes routes existantes pour /chiffrer et /dechiffrer ici)
 @app.route('/encrypt-form', methods=['POST'])
 def encrypt_form():
     key = request.form['key']
@@ -30,12 +36,6 @@ def decrypt_form():
         return render_template('crypto.html', result=f"Message déchiffré : {decrypted}")
     except Exception as e:
         return render_template('crypto.html', result=f"Erreur : {str(e)}")
-
-# Bonus : route pour générer une clé
-@app.route("/generate_key")
-def generate_key():
-    key = Fernet.generate_key().decode()  # clé en base64
-    return jsonify({"key": key})
 
 if __name__ == '__main__':
     app.run(debug=True)
