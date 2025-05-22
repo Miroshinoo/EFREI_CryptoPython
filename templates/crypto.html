@@ -9,17 +9,22 @@
 
 <div class="container">
     <h1>
+        <img src="https://em-content.zobj.net/source/apple/391/unlocked_1f513.png" class="lock-icon" alt="Déverrouillé">
         Application de Cryptographie EB
     </h1>
 
     <div class="card">
         <h2>
+            <img src="https://em-content.zobj.net/source/apple/391/locked_1f512.png" class="lock-icon" alt="Verrou">
             Chiffrement
         </h2>
         <form method="POST" action="/chiffrer">
             <label for="key">Clé :</label>
-            <input type="text" id="key" name="key">
-            <button type="button" onclick="generateKey()">🔑 Générer une clé</button>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="key" name="key" style="flex: 1;">
+                <button type="button" onclick="generateKey()">🔑 Générer une clé</button>
+            </div>
+
             <label for="message">Message :</label>
             <textarea id="message" name="message"></textarea>
 
@@ -29,6 +34,7 @@
 
     <div class="card">
         <h2>
+            <img src="https://em-content.zobj.net/source/apple/391/unlocked_1f513.png" class="lock-icon" alt="Déverrouillé">
             Déchiffrement
         </h2>
         <form method="POST" action="/dechiffrer">
@@ -42,6 +48,7 @@
         </form>
     </div>
 </div>
+
 <script>
 function generateKey() {
     fetch("/generate_key")
@@ -55,6 +62,6 @@ function generateKey() {
         });
 }
 </script>
+
 </body>
 </html>
-
