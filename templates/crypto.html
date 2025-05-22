@@ -2,38 +2,49 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Crypto App EFREI</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-
+    <title>Application de Cryptographie EB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>🔐 Application de Cryptographie EB</h1>
 
-    <h2>🔒 Chiffrement</h2>
-    <form action="/encrypt-form" method="post">
-        <label for="key_encrypt">Clé :</label><br>
-        <input type="text" name="key" id="key_encrypt" required><br><br>
+<div class="container">
+    <h1>
+        <img src="https://em-content.zobj.net/source/apple/391/unlocked_1f513.png" class="lock-icon" alt="Déverrouillé">
+        Application de Cryptographie EB
+    </h1>
 
-        <label for="message_encrypt">Message :</label><br>
-        <textarea name="message" id="message_encrypt" rows="4" cols="50" required></textarea><br><br>
+    <div class="card">
+        <h2>
+            <img src="https://em-content.zobj.net/source/apple/391/locked_1f512.png" class="lock-icon" alt="Verrou">
+            Chiffrement
+        </h2>
+        <form method="POST" action="/chiffrer">
+            <label for="key">Clé :</label>
+            <input type="text" id="key" name="key">
 
-        <button type="submit">Chiffrer</button>
-    </form>
+            <label for="message">Message :</label>
+            <textarea id="message" name="message"></textarea>
 
-    <h2>🔓 Déchiffrement</h2>
-    <form action="/decrypt-form" method="post">
-        <label for="key_decrypt">Clé :</label><br>
-        <input type="text" name="key" id="key_decrypt" required><br><br>
+            <input type="submit" value="Chiffrer">
+        </form>
+    </div>
 
-        <label for="message_decrypt">Message chiffré :</label><br>
-        <textarea name="message" id="message_decrypt" rows="4" cols="50" required></textarea><br><br>
+    <div class="card">
+        <h2>
+            <img src="https://em-content.zobj.net/source/apple/391/unlocked_1f513.png" class="lock-icon" alt="Déverrouillé">
+            Déchiffrement
+        </h2>
+        <form method="POST" action="/dechiffrer">
+            <label for="key_decrypt">Clé :</label>
+            <input type="text" id="key_decrypt" name="key">
 
-        <button type="submit">Déchiffrer</button>
-    </form>
+            <label for="encrypted_message">Message chiffré :</label>
+            <textarea id="encrypted_message" name="message"></textarea>
 
-    {% if result %}
-        <h2>📝 Résultat :</h2>
-        <p><strong>{{ result }}</strong></p>
-    {% endif %}
+            <input type="submit" value="Déchiffrer">
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
