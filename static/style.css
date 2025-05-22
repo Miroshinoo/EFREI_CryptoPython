@@ -64,3 +64,11 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.result {
+    background-color: #f0f4f8;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+}
